@@ -21,4 +21,10 @@ export default class Person extends BaseModel {
       name: { type: types.TEXT, not_null: true },
     }
   }
+
+  static get allGifts(person) {
+    const sql = 'SELECT * FROM gifts WHERE gift.person_id = ?'
+    const params = [person.id]
+    return this.repository.databaseLayer.executeSql(sql, params).then(({ rows }) => rows)
+  }
 }
