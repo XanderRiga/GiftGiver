@@ -1,8 +1,10 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Person from './models/person';
 import Gift from './models/gift';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [people, setPeople] = useState([])
@@ -37,20 +39,22 @@ export default function App() {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={{ flex: 1 }}>
-        {
-          people.map(person => <Text key={person.id}>{person.name}</Text>)
-        }
-      </ScrollView>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <ScrollView style={{ flex: 1 }}>
+          {
+            people.map(person => <Text key={person.id}>{person.name}</Text>)
+          }
+        </ScrollView>
 
-      <ScrollView style={{ flex: 1 }}>
-        {
-          gifts.map(gift => <Text key={gift.id}>{gift.name}</Text>)
-        }
-      </ScrollView>
-      <StatusBar style="auto" />
-    </View>
+        <ScrollView style={{ flex: 1 }}>
+          {
+            gifts.map(gift => <Text key={gift.id}>{gift.name}</Text>)
+          }
+        </ScrollView>
+        <StatusBar style="auto" />
+      </View>
+    </NavigationContainer>
   );
 }
 
