@@ -22,7 +22,7 @@ export default class Person extends BaseModel {
     }
   }
 
-  static get allGifts(person) {
+  static allGifts(person) {
     const sql = 'SELECT * FROM gifts WHERE gift.person_id = ?'
     const params = [person.id]
     return this.repository.databaseLayer.executeSql(sql, params).then(({ rows }) => rows)
