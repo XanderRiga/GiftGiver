@@ -8,22 +8,23 @@ import Gift from './models/gift';
 import Person from './models/person';
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
   const Stack = createStackNavigator();
 
   const createTables = useCallback(async () => {
     await Person.createTable();
     await Gift.createTable();
-    setLoaded(true);
+    setReady(true);
   }, []);
 
   React.useEffect(() => {
-    createTables();
+    createTables().then();
   });
 
-  if (!loaded) {
+  if (!ready) {
     return (<View />)
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
