@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import { Container, Content, List, ListItem, Text } from 'native-base';
+import {Container, Content, List, ListItem, Text} from 'native-base';
 import Person from '../models/person';
 
-export function HomeScreen({ navigation }) {
+export function HomeScreen({navigation}) {
   const [people, setPeople] = useState([]);
 
   const loadPeople = useCallback(async () => {
