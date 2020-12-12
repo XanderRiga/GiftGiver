@@ -17,6 +17,7 @@
     "expo-sqlite-orm": "^1.5.6",
     "expo-status-bar": "~1.0.2",
     "expo-updates": "~0.3.2",
+    "native-base": "^2.13.15",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.3",
