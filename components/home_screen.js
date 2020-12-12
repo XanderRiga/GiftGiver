@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {ScrollView, Text} from 'react-native';
+import { Container, Content, List, ListItem, Text } from 'native-base';
 import Person from '../models/person';
 
 export function HomeScreen({ navigation }) {
@@ -16,10 +16,14 @@ export function HomeScreen({ navigation }) {
   }, [navigation]);
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-    {
-      people.map(person => <Text key={person.id}>{person.name}</Text>)
-    }
-    </ScrollView>
+    <Container>
+      <Content>
+        <List>
+          {
+            people.map(person => <ListItem key={person.id}><Text>{person.name}</Text></ListItem>)
+          }
+        </List>
+      </Content>
+    </Container>
   );
 }
