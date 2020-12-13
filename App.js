@@ -3,13 +3,13 @@ import React, {useCallback, useState} from 'react';
 import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {HomeScreen} from './components/home_screen';
+import {Home} from './components/home';
 import Gift from './models/gift';
 import Person from './models/person';
 import {Button, Icon, Root} from 'native-base';
-import {AddPersonComponent} from "./components/addPerson";
+import {AddPerson} from "./components/addPerson";
 import * as Font from 'expo-font';
-import {GiftList} from "./components/gift_list";
+import {GiftList} from "./components/giftList";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -39,18 +39,20 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="People"
-            component={HomeScreen}
+            name="Home"
+            component={Home}
             options={({ navigation, route }) => ({
               headerRight: () => (
                 <Button
-                  onPress={() => navigation.navigate('Add A Person')}
+                  onPress={() => navigation.navigate('AddPerson')}
                   icon
                   transparent
                 ><Icon name='add' style={{color: 'black'}} /></Button>
-              )})} />
-          <Stack.Screen name="Add A Person" component={AddPersonComponent} />
-          <Stack.Screen name="Gifts" component={GiftList} />
+              ), title: 'People'})} />
+          <Stack.Screen name="AddPerson" component={AddPerson} options={{title: 'Add A Person'}} />
+          <Stack.Screen name="Gifts"
+                        component={GiftList}
+                        options={({ route }) => ({ title: route.params.name })}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Root>

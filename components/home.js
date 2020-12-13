@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Container, Content, List, ListItem, Text, Right, Icon, Left} from 'native-base';
 import Person from '../models/person';
 
-export function HomeScreen({navigation}) {
+export function Home({navigation}) {
   const [people, setPeople] = useState([]);
 
   const loadPeople = useCallback(async () => {
@@ -16,7 +16,7 @@ export function HomeScreen({navigation}) {
   }, [navigation]);
 
   const clickPerson = (person) => {
-    navigation.navigate('Gifts');
+    navigation.navigate('Gifts', {name: person.name});
   }
 
   return (
