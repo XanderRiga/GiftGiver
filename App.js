@@ -7,7 +7,7 @@ import {Home} from './components/home';
 import Gift from './models/gift';
 import Person from './models/person';
 import {Button, Icon, Root} from 'native-base';
-import {AddPerson} from "./components/addPerson";
+import {PersonForm} from "./components/personForm";
 import * as Font from 'expo-font';
 import {GiftList} from "./components/giftList";
 
@@ -49,7 +49,7 @@ export default function App() {
                   transparent
                 ><Icon name='add' style={{color: 'black'}} /></Button>
               ), title: 'People'})} />
-          <Stack.Screen name="AddPerson" component={AddPerson} options={{title: 'Add A Person'}} />
+          <Stack.Screen name="AddPerson" component={PersonForm} options={{title: 'Add A Person'}} />
           <Stack.Screen name="Gifts"
                         component={GiftList}
                         options={({ route }) => ({ title: route.params.name })}/>

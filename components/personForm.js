@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 import {Button, Container, Content, Form, Item, Input, Text, Toast} from 'native-base';
 import Person from '../models/person';
 
-export function AddPerson({navigation}) {
+export function PersonForm({navigation}) {
   const [name, setName] = useState('')
 
   const submitPerson = async () => {
