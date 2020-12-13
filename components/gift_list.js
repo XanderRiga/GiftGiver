@@ -1,35 +1,29 @@
 import React, {useCallback, useState} from 'react';
 import {Container, Content, List, ListItem, Text, Right, Icon, Left} from 'native-base';
-import Person from '../models/person';
+import Gift from '../models/gift';
 
-export function HomeScreen({navigation}) {
-  const [people, setPeople] = useState([]);
+export function GiftList({navigation}) {
+  const [gifts, setGifts] = useState([]);
 
-  const loadPeople = useCallback(async () => {
-    setPeople(await Person.query());
+  const loadGifts = useCallback(async () => {
+    setGifts(await Gift.query());
   }, []);
 
   React.useEffect(() => {
     return navigation.addListener('focus', () => {
-      loadPeople()
+      loadGifts()
     });
   }, [navigation]);
-
-  const clickPerson = (person) => {
-    navigation.navigate('Gifts');
-  }
 
   return (
     <Container>
       <Content>
         <List>
           {
-            people.map(person =>
-                <ListItem key={person.id}
-                          button={true}
-                          onPress={() => clickPerson(person)}>
+            gifts.map(gift =>
+                <ListItem key={gift.id} >
                   <Left>
-                    <Text>{person.name}</Text>
+                    <Text>{gift.name}</Text>
                   </Left>
                   <Right>
                     <Icon name="arrow-forward" />

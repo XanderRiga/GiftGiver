@@ -9,6 +9,7 @@ import Person from './models/person';
 import {Button, Icon, Root} from 'native-base';
 import {AddPersonComponent} from "./components/addPerson";
 import * as Font from 'expo-font';
+import {GiftList} from "./components/gift_list";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -49,6 +50,7 @@ export default function App() {
                 ><Icon name='add' style={{color: 'black'}} /></Button>
               )})} />
           <Stack.Screen name="Add A Person" component={AddPersonComponent} />
+          <Stack.Screen name="Gifts" component={GiftList} />
         </Stack.Navigator>
       </NavigationContainer>
     </Root>
