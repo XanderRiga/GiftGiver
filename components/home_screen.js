@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Container, Content, List, ListItem, Text} from 'native-base';
+import {Container, Content, List, ListItem, Text, Right, Icon, Left} from 'native-base';
 import Person from '../models/person';
 
 export function HomeScreen({navigation}) {
@@ -20,7 +20,15 @@ export function HomeScreen({navigation}) {
       <Content>
         <List>
           {
-            people.map(person => <ListItem key={person.id}><Text>{person.name}</Text></ListItem>)
+            people.map(person =>
+                <ListItem key={person.id}>
+                  <Left>
+                    <Text>{person.name}</Text>
+                  </Left>
+                  <Right>
+                    <Icon name="arrow-forward" />
+                  </Right>
+                </ListItem>)
           }
         </List>
       </Content>
