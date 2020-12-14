@@ -15,13 +15,17 @@ export function GiftList({navigation, route}) {
     });
   }, [navigation]);
 
+  const clickGift = (gift) => {
+    navigation.navigate('GiftPage', {name: gift.name, gift: gift})
+  };
+
   return (
     <Container>
       <Content>
         <List>
           {
             gifts.map(gift =>
-              <ListItem key={gift.id} >
+              <ListItem key={gift.id} onPress={() => clickGift(gift)}>
                 <Left>
                   <Text>{gift.name}</Text>
                 </Left>

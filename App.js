@@ -11,6 +11,7 @@ import {PersonForm} from "./components/personForm";
 import * as Font from 'expo-font';
 import {GiftList} from "./components/giftList";
 import {GiftForm} from "./components/giftForm";
+import {GiftPage} from "./components/giftPage";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -66,6 +67,10 @@ export default function App() {
             name="GiftForm"
             component={GiftForm}
             options={{title: 'Add a Gift'}} />
+          <Stack.Screen
+            name="GiftPage"
+            component={GiftPage}
+            options={({ route }) => ({ title: route.params.name })}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Root>
