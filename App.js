@@ -10,6 +10,7 @@ import {Button, Icon, Root} from 'native-base';
 import {PersonForm} from "./components/personForm";
 import * as Font from 'expo-font';
 import {GiftList} from "./components/giftList";
+import {GiftForm} from "./components/giftForm";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -44,15 +45,27 @@ export default function App() {
             options={({ navigation, route }) => ({
               headerRight: () => (
                 <Button
-                  onPress={() => navigation.navigate('AddPerson')}
+                  onPress={() => navigation.navigate('PersonForm')}
                   icon
                   transparent
                 ><Icon name='add' style={{color: 'black'}} /></Button>
               ), title: 'People'})} />
-          <Stack.Screen name="AddPerson" component={PersonForm} options={{title: 'Add A Person'}} />
-          <Stack.Screen name="Gifts"
-                        component={GiftList}
-                        options={({ route }) => ({ title: route.params.name })}/>
+          <Stack.Screen name="PersonForm" component={PersonForm} options={{title: 'Add A Person'}} />
+          <Stack.Screen
+            name="Gifts"
+            component={GiftList}
+            options={({ navigation, route }) => ({
+              headerRight: () => (
+                <Button
+                  onPress={() => navigation.navigate('GiftForm')}
+                  icon
+                  transparent
+                ><Icon name='add' style={{color: 'black'}} /></Button>
+              ), title: route.params.name})}/>
+          <Stack.Screen
+            name="GiftForm"
+            component={GiftForm}
+            options={{title: 'Add a Gift'}} />
         </Stack.Navigator>
       </NavigationContainer>
     </Root>

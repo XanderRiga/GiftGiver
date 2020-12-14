@@ -25,16 +25,17 @@ export function Home({navigation}) {
         <List>
           {
             people.map(person =>
-                <ListItem key={person.id}
-                          button={true}
-                          onPress={() => clickPerson(person)}>
-                  <Left>
-                    <Text>{person.name}</Text>
-                  </Left>
-                  <Right>
-                    <Icon name="arrow-forward" />
-                  </Right>
-                </ListItem>)
+              <ListItem
+                key={person.id}
+                button={true}
+                onPress={() => clickPerson(person)}>
+                <Left>
+                  <Text>{person.name}</Text>
+                </Left>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
+              </ListItem>)
           }
         </List>
       </Content>

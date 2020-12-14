@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {StyleSheet} from "react-native";
 import {Button, Container, Content, Form, Item, Input, Text, Toast} from 'native-base';
-import Person from '../models/person';
+import Gift from "../models/gift";
 
-export function PersonForm({navigation}) {
+export function GiftForm({navigation}) {
   const [name, setName] = useState('')
 
-  const submitPerson = async () => {
+  const submitGift = async () => {
     if (!name) {
       Toast.show({
         text: "Name must be filled",
@@ -15,8 +15,8 @@ export function PersonForm({navigation}) {
       return;
     }
 
-    const person = new Person({name: name})
-    await person.save();
+    const gift = new Gift({name: name})
+    await gift.save();
     navigation.goBack();
   }
 
@@ -30,7 +30,7 @@ export function PersonForm({navigation}) {
                 placeholder="Name" />
           </Item>
           <Button
-              onPress={submitPerson}
+              onPress={submitGift}
               success
               full
               style={styles.saveButton}>
