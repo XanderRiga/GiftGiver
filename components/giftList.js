@@ -33,7 +33,7 @@ export function GiftList({navigation, route}) {
                   {gift.notes? <Text style={styles.subText}>{truncate(gift.notes, 60)}</Text> : null}
                 </Body>
                 <Right>
-                  <Button icon transparent>
+                  <Button icon transparent small>
                     <Icon name="trash" style={{color: 'red'}} />
                   </Button>
                 </Right>
