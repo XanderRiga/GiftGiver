@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Container, Content, List, ListItem, Text, Right, Icon, Left} from 'native-base';
+import {Body, Container, Content, List, ListItem, Text, Right, Icon} from 'native-base';
 import Person from '../models/person';
 
 export function Home({navigation}) {
@@ -29,9 +29,9 @@ export function Home({navigation}) {
                 key={person.id}
                 button={true}
                 onPress={() => clickPerson(person)}>
-                <Left>
+                <Body>
                   <Text>{person.name}</Text>
-                </Left>
+                </Body>
                 <Right>
                   <Icon name="arrow-forward" />
                 </Right>
