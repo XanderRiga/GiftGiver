@@ -21,14 +21,14 @@ export function GiftList({navigation}) {
         <List>
           {
             gifts.map(gift =>
-                <ListItem key={gift.id} >
-                  <Left>
-                    <Text>{gift.name}</Text>
-                  </Left>
-                  <Right>
-                    <Icon name="arrow-forward" />
-                  </Right>
-                </ListItem>)
+              <ListItem key={gift.id} >
+                <Left>
+                  <Text>{gift.name}</Text>
+                </Left>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
+              </ListItem>)
           }
         </List>
       </Content>

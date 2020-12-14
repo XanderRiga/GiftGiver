@@ -26,14 +26,14 @@ export function GiftForm({navigation, route}) {
         <Form>
           <Item>
             <Input
-                onChangeText={val => setName(val)}
-                placeholder="Name" />
+              onChangeText={val => setName(val)}
+              placeholder="Name" />
           </Item>
           <Button
-              onPress={submitGift}
-              success
-              full
-              style={styles.saveButton}>
+            onPress={submitGift}
+            success
+            full
+            style={styles.saveButton}>
             <Text>Submit</Text>
           </Button>
         </Form>
