@@ -2,11 +2,11 @@ import React, {useCallback, useState} from 'react';
 import {Container, Content, List, ListItem, Text, Right, Icon, Left} from 'native-base';
 import Gift from '../models/gift';
 
-export function GiftList({navigation}) {
+export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
 
   const loadGifts = useCallback(async () => {
-    setGifts(await Gift.query());
+    setGifts(await Gift.query({where: {person_id_eq: route.params.person.id}}));
   }, []);
 
   React.useEffect(() => {
