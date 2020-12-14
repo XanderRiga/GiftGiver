@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
-import {Body, CheckBox, Container, Content, List, ListItem, Separator, Right, Icon, Text} from 'native-base';
+import {Body, CheckBox, Container, Content, Fab, List, ListItem, Separator, Right, Icon, Text, Button} from 'native-base';
 import Gift from '../models/gift';
-import {StyleSheet} from "react-native";
+import {Alert, StyleSheet} from "react-native";
 import {truncate} from "../helpers/truncate";
 
 export function GiftList({navigation, route}) {
@@ -25,17 +25,42 @@ export function GiftList({navigation, route}) {
   const toggleGiftChecked = async (gift) => {
     await Gift.update({id: gift.id, checked: !gift.checked});
     await loadGifts();
-  }
+  };
 
-  const containsCheckedGifts = () => {
+  const deleteClicked = () => {
+    Alert.alert(
+      "Are you sure?",
+      "This will delete all checked gifts in the current list",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => deleteCheckedGifts() }
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const deleteCheckedGifts = async () => {
+    for (const gift of gifts) {
+      if (gift.checked) {
+        await Gift.destroy(gift.id)
+      }
+    }
+
+    await loadGifts();
+  };
+
+  function containsCheckedGifts() {
+    let checked = false
     gifts.forEach(gift => {
       if (gift.checked) {
-        console.log(gift)
-        return true;
+        checked = true;
       }
     })
 
-    return false;
+    return checked;
   }
 
   return (
@@ -57,7 +82,9 @@ export function GiftList({navigation, route}) {
           }
 
           {
-            containsCheckedGifts ? <Separator /> : undefined
+            containsCheckedGifts() ?
+                <Separator />
+                : undefined
           }
 
           {
@@ -72,11 +99,21 @@ export function GiftList({navigation, route}) {
                   <Right>
                     <Icon active name="arrow-forward" />
                   </Right>
-                </ListItem> : undefined
+                </ListItem>
+                  : undefined
             )
           }
         </List>
       </Content>
+      {
+        containsCheckedGifts() ? <Fab
+            active={true}
+            style={{ backgroundColor: 'red' }}
+            position="bottomRight"
+            onPress={deleteClicked}>
+          <Icon name="trash" />
+        </Fab> : undefined
+      }
     </Container>
   );
 }
