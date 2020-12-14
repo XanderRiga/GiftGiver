@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Body, Button, Container, Content, List, ListItem, Text, Right, Icon} from 'native-base';
 import Gift from '../models/gift';
-import {StyleSheet} from "react-native";
+import {StyleSheet, Alert} from "react-native";
 import {truncate} from "../helpers/truncate";
 
 export function GiftList({navigation, route}) {
@@ -21,6 +21,26 @@ export function GiftList({navigation, route}) {
     navigation.navigate('GiftPage', {name: gift.name, gift: gift})
   };
 
+  const trashGiftButtonPress = (gift) => {
+    Alert.alert(
+      "Delete " + gift.name + '?',
+      "Are you sure you want to delete " + gift.name + " from " + route.params.person.name + "'s list?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => deleteGift(gift) }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const deleteGift = async (gift) => {
+    await Gift.destroy(gift.id)
+    loadGifts()
+  }
+
   return (
     <Container>
       <Content>
@@ -33,7 +53,7 @@ export function GiftList({navigation, route}) {
                   {gift.notes? <Text style={styles.subText}>{truncate(gift.notes, 60)}</Text> : null}
                 </Body>
                 <Right>
-                  <Button icon transparent small>
+                  <Button icon transparent small onPress={() => trashGiftButtonPress(gift)}>
                     <Icon name="trash" style={{color: 'red'}} />
                   </Button>
                 </Right>
