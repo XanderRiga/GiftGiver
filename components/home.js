@@ -16,7 +16,7 @@ export function Home({navigation}) {
   }, [navigation]);
 
   const clickPerson = (person) => {
-    navigation.navigate('Gifts', {name: person.name});
+    navigation.navigate('Gifts', {name: person.name, person: person});
   }
 
   return (

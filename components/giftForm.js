@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 import {Button, Container, Content, Form, Item, Input, Text, Toast} from 'native-base';
 import Gift from "../models/gift";
 
-export function GiftForm({navigation}) {
+export function GiftForm({navigation, route}) {
   const [name, setName] = useState('')
 
   const submitGift = async () => {
@@ -15,7 +15,7 @@ export function GiftForm({navigation}) {
       return;
     }
 
-    const gift = new Gift({name: name})
+    const gift = new Gift({name: name, person_id: route.params.person.id})
     await gift.save();
     navigation.goBack();
   }

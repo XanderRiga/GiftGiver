@@ -57,7 +57,7 @@ export default function App() {
             options={({ navigation, route }) => ({
               headerRight: () => (
                 <Button
-                  onPress={() => navigation.navigate('GiftForm')}
+                  onPress={() => navigation.navigate('GiftForm', {person: route.params.person})}
                   icon
                   transparent
                 ><Icon name='add' style={{color: 'black'}} /></Button>
