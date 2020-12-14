@@ -1,6 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import {Container, Content, List, ListItem, Text, Right, Icon, Left} from 'native-base';
+import {Body, Button, Container, Content, List, ListItem, Text, Right, Icon} from 'native-base';
 import Gift from '../models/gift';
+import {StyleSheet} from "react-native";
+import {truncate} from "../helpers/truncate";
 
 export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
@@ -26,11 +28,14 @@ export function GiftList({navigation, route}) {
           {
             gifts.map(gift =>
               <ListItem key={gift.id} onPress={() => clickGift(gift)}>
-                <Left>
+                <Body>
                   <Text>{gift.name}</Text>
-                </Left>
+                  {gift.notes? <Text style={styles.subText}>{truncate(gift.notes, 60)}</Text> : null}
+                </Body>
                 <Right>
-                  <Icon name="arrow-forward" />
+                  <Button icon transparent>
+                    <Icon name="trash" style={{color: 'red'}} />
+                  </Button>
                 </Right>
               </ListItem>)
           }
@@ -39,3 +44,13 @@ export function GiftList({navigation, route}) {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  subText: {
+    fontSize: 13
+  },
+  swipeableRowFront: {
+    alignItems: 'stretch',
+    justifyContent: 'center'
+  }
+})
