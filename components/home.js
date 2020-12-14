@@ -1,6 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import {Body, Container, Content, List, ListItem, Text, Right, Icon} from 'native-base';
+import {Body, Container, Content, List, ListItem, Text, Right, Icon, Button} from 'native-base';
 import Person from '../models/person';
+import {Alert} from "react-native";
+import Gift from "../models/gift";
 
 export function Home({navigation}) {
   const [people, setPeople] = useState([]);
@@ -19,6 +21,28 @@ export function Home({navigation}) {
     navigation.navigate('Gifts', {name: person.name, person: person});
   }
 
+  const trashPersonButtonPress = (person) => {
+    Alert.alert(
+        "Delete " + person.name + '?',
+        "Are you sure you want to delete " + person.name + "? This will delete all of their associated gifts.",
+        [
+          {
+            text: "Cancel",
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => deletePerson(person) }
+        ],
+        { cancelable: false }
+    );
+  }
+
+  const deletePerson = async (person) => {
+    const associatedGifts = await Gift.query({where: {person_id_eq: person.id}})
+    associatedGifts.forEach(gift => Gift.destroy(gift.id))
+    await Person.destroy(person.id)
+    loadPeople()
+  }
+
   return (
     <Container>
       <Content>
@@ -33,7 +57,9 @@ export function Home({navigation}) {
                   <Text>{person.name}</Text>
                 </Body>
                 <Right>
-                  <Icon name="arrow-forward" />
+                  <Button icon transparent small onPress={() => trashPersonButtonPress(person)}>
+                    <Icon name="trash" style={{color: 'red'}} />
+                  </Button>
                 </Right>
               </ListItem>)
           }
