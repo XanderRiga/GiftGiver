@@ -29,7 +29,7 @@ export default function App() {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     }))();
 
-    createTables();
+    createTables().then();
   });
 
   if (!ready) {
@@ -43,7 +43,7 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={({ navigation, route }) => ({
+            options={({ navigation }) => ({
               headerRight: () => (
                 <Button
                   onPress={() => navigation.navigate('PersonForm')}

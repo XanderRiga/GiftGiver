@@ -20,6 +20,7 @@ export default class Gift extends BaseModel {
       id: { type: types.INTEGER, primary_key: true },
       name: { type: types.TEXT, not_null: true },
       person_id: { type: types.INTEGER, not_null: true },
+      checked: { type: types.BOOLEAN, not_null: true, default: false },
       notes: { type: types.TEXT },
       links: { type: types.TEXT },
       tags: { type: types.TEXT },

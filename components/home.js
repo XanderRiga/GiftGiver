@@ -13,7 +13,7 @@ export function Home({navigation}) {
 
   React.useEffect(() => {
     return navigation.addListener('focus', () => {
-      loadPeople()
+      loadPeople().then()
     });
   }, [navigation]);
 
@@ -24,7 +24,8 @@ export function Home({navigation}) {
   const trashPersonButtonPress = (person) => {
     Alert.alert(
         "Delete " + person.name + '?',
-        "Are you sure you want to delete " + person.name + "? This will delete all of their associated gifts.",
+        "Are you sure you want to delete " + person.name + "? " +
+        "This will delete all of their associated gifts.",
         [
           {
             text: "Cancel",
@@ -40,7 +41,7 @@ export function Home({navigation}) {
     const associatedGifts = await Gift.query({where: {person_id_eq: person.id}})
     associatedGifts.forEach(gift => Gift.destroy(gift.id))
     await Person.destroy(person.id)
-    loadPeople()
+    await loadPeople()
   }
 
   return (
