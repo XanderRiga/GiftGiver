@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Body, Container, Content, List, ListItem, Text, Right, Icon, Button} from 'native-base';
+import {Body, Container, Content, List, ListItem, Text, Right, Icon, Button, Fab} from 'native-base';
 import Person from '../models/person';
 import {Alert} from "react-native";
 import Gift from "../models/gift";
@@ -66,6 +66,13 @@ export function Home({navigation}) {
           }
         </List>
       </Content>
+      <Fab
+        active={true}
+        style={{ backgroundColor: 'blue' }}
+        position="bottomRight"
+        onPress={() => navigation.navigate('PersonForm')}>
+        <Icon name="add" />
+      </Fab>
     </Container>
   );
 }

@@ -42,15 +42,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
-            component={Home}
-            options={({ navigation }) => ({
-              headerRight: () => (
-                <Button
-                  onPress={() => navigation.navigate('PersonForm')}
-                  icon
-                  transparent
-                ><Icon name='add' style={{color: 'black'}} /></Button>
-              ), title: 'People'})} />
+            component={Home} />
           <Stack.Screen name="PersonForm" component={PersonForm} options={{title: 'Add A Person'}} />
           <Stack.Screen
             name="Gifts"
