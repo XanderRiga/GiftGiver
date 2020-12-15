@@ -42,7 +42,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
-            component={Home} />
+            component={Home} options={{title: 'People'}} />
           <Stack.Screen name="PersonForm" component={PersonForm} options={{title: 'Add A Person'}} />
           <Stack.Screen
             name="Gifts"
