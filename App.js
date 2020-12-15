@@ -54,15 +54,7 @@ export default function App() {
           <Stack.Screen name="PersonForm" component={PersonForm} options={{title: 'Add A Person'}} />
           <Stack.Screen
             name="Gifts"
-            component={GiftList}
-            options={({ navigation, route }) => ({
-              headerRight: () => (
-                <Button
-                  onPress={() => navigation.navigate('GiftForm', {person: route.params.person})}
-                  icon
-                  transparent
-                ><Icon name='add' style={{color: 'black'}} /></Button>
-              ), title: route.params.name})}/>
+            component={GiftList} />
           <Stack.Screen
             name="GiftForm"
             component={GiftForm}

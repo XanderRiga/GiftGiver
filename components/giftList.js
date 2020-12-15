@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Body, CheckBox, Container, Content, Fab, List, ListItem, Separator, Right, Icon, Text, Button} from 'native-base';
+import {ActionSheet, Body, CheckBox, Container, Content, Fab, List, ListItem, Separator, Right, Icon, Text, Button} from 'native-base';
 import Gift from '../models/gift';
 import {Alert, StyleSheet} from "react-native";
 import {truncate} from "../helpers/truncate";
@@ -26,6 +26,11 @@ export function GiftList({navigation, route}) {
     await Gift.update({id: gift.id, checked: !gift.checked});
     await loadGifts();
   };
+
+  const deleteSpecificGift = async (gift) => {
+    await Gift.destroy(gift.id);
+    await loadGifts();
+  }
 
   const deleteClicked = () => {
     Alert.alert(
@@ -76,7 +81,25 @@ export function GiftList({navigation, route}) {
                   {gift.notes? <Text style={styles.subText}>{truncate(gift.notes, 50)}</Text> : null}
                 </Body>
                 <Right>
-                  <Icon active name="arrow-forward" />
+                  <Button
+                    icon
+                    transparent
+                    onPress={() =>
+                      ActionSheet.show(
+                        {
+                          options: ['Delete', 'Cancel'],
+                          cancelButtonIndex: 1,
+                          destructiveButtonIndex: 0,
+                          title: gift.name
+                        },
+                        buttonIndex => {
+                          if (buttonIndex === 0) {
+                            deleteSpecificGift(gift).then()
+                          }
+                        }
+                      )}>
+                    <Icon type={'FontAwesome'} name="ellipsis-h" style={{color: 'black'}} />
+                  </Button>
                 </Right>
               </ListItem> : undefined)
           }
@@ -97,7 +120,25 @@ export function GiftList({navigation, route}) {
                     {gift.notes? <Text style={styles.subText}>{truncate(gift.notes, 50)}</Text> : null}
                   </Body>
                   <Right>
-                    <Icon active name="arrow-forward" />
+                    <Button
+                      icon
+                      transparent
+                      onPress={() =>
+                        ActionSheet.show(
+                          {
+                            options: ['Delete', 'Cancel'],
+                            cancelButtonIndex: 1,
+                            destructiveButtonIndex: 0,
+                            title: gift.name
+                          },
+                          buttonIndex => {
+                            if (buttonIndex === 0) {
+                              deleteSpecificGift(gift).then()
+                            }
+                          }
+                        )}>
+                    <Icon type={'FontAwesome'} name="ellipsis-h" style={{color: 'black'}} />
+                    </Button>
                   </Right>
                 </ListItem>
                   : undefined
@@ -105,15 +146,13 @@ export function GiftList({navigation, route}) {
           }
         </List>
       </Content>
-      {
-        containsCheckedGifts() ? <Fab
-            active={true}
-            style={{ backgroundColor: 'red' }}
-            position="bottomRight"
-            onPress={deleteClicked}>
-          <Icon name="trash" />
-        </Fab> : undefined
-      }
+      <Fab
+          active={true}
+          style={{ backgroundColor: 'blue' }}
+          position="bottomRight"
+          onPress={() => {navigation.navigate('GiftForm', {person: route.params.person})}}>
+        <Icon name="add" />
+      </Fab>
     </Container>
   );
 }
