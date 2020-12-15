@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {ActionSheet, Body, CheckBox, Container, Content, Fab, List, ListItem, Separator, Right, Icon, Text, Button} from 'native-base';
 import Gift from '../models/gift';
-import {Alert, StyleSheet} from "react-native";
+import {StyleSheet} from "react-native";
 import {truncate} from "../helpers/truncate";
 
 export function GiftList({navigation, route}) {
@@ -31,31 +31,6 @@ export function GiftList({navigation, route}) {
     await Gift.destroy(gift.id);
     await loadGifts();
   }
-
-  const deleteClicked = () => {
-    Alert.alert(
-      "Are you sure?",
-      "This will delete all checked gifts in the current list",
-      [
-        {
-          text: "Cancel",
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => deleteCheckedGifts() }
-      ],
-      { cancelable: false }
-    );
-  };
-
-  const deleteCheckedGifts = async () => {
-    for (const gift of gifts) {
-      if (gift.checked) {
-        await Gift.destroy(gift.id)
-      }
-    }
-
-    await loadGifts();
-  };
 
   function containsCheckedGifts() {
     let checked = false
