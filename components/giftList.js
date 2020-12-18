@@ -101,7 +101,7 @@ export function GiftList({navigation, route}) {
                       onPress={() =>
                         ActionSheet.show(
                           {
-                            options: ['Delete', 'Cancel'],
+                            options: ['Delete', 'Cancel', 'Edit'],
                             cancelButtonIndex: 1,
                             destructiveButtonIndex: 0,
                             title: gift.name
@@ -109,6 +109,8 @@ export function GiftList({navigation, route}) {
                           buttonIndex => {
                             if (buttonIndex === 0) {
                               deleteSpecificGift(gift).then()
+                            } else if (buttonIndex === 2) {
+                              navigation.navigate('GiftForm', {currentGift: gift, person: route.params.person})
                             }
                           }
                         )}>

@@ -4,9 +4,20 @@ import {Button, Container, Content, Form, Item, Icon, Input, Text, Textarea, Toa
 import Gift from "../models/gift";
 
 export function GiftForm({navigation, route}) {
-  const [name, setName] = useState('')
-  const [notes, setNotes] = useState('')
-  const [price, setPrice] = useState('0')
+  const [name, setName] = useState('');
+  const [notes, setNotes] = useState('');
+  const [price, setPrice] = useState('0');
+
+  React.useEffect(() => {
+    return navigation.addListener('focus', () => {
+      if (route.params.currentGift) {
+        const gift = route.params.currentGift
+        setName(gift.name)
+        setNotes(gift.notes)
+        setPrice(buildPriceDollars(gift.price_cents))
+      }
+    });
+  });
 
   const submitGift = async () => {
     if (!name) {
@@ -17,7 +28,7 @@ export function GiftForm({navigation, route}) {
       return;
     }
 
-    const price_cents = buildPrice(price)
+    const price_cents = buildPriceCents(price)
     if (isNaN(price_cents)) {
       Toast.show({
         text: "Price must be a number",
@@ -26,19 +37,33 @@ export function GiftForm({navigation, route}) {
       return;
     }
 
-    const gift = new Gift({
-      name: name,
-      person_id: route.params.person.id,
-      notes: notes,
-      price_cents: price_cents
-    })
-    await gift.save();
+    if (route.params.currentGift) {
+      await Gift.update({
+        id: route.params.currentGift.id,
+        name: name,
+        notes: notes,
+        price_cents: price_cents
+      });
+    } else {
+      const gift = new Gift({
+        name: name,
+        person_id: route.params.person.id,
+        notes: notes,
+        price_cents: price_cents
+      })
+      await gift.save();
+    }
+
     navigation.goBack();
   }
 
-  const buildPrice = () => {
+  const buildPriceCents = () => {
     const priceFloat = parseFloat(price)
     return Math.round( priceFloat * 100);
+  }
+
+  const buildPriceDollars = (price_cents) => {
+    return (price_cents / 100.0).toString()
   }
 
   return (
@@ -48,12 +73,14 @@ export function GiftForm({navigation, route}) {
           <Item style={styles.input}>
             <Input
               onChangeText={val => setName(val)}
+              value={name}
               placeholder="Name" />
           </Item>
           <Item style={styles.input}>
             <Icon active name='dollar-sign' type={'FontAwesome5'} />
             <Input
                 onChangeText={val => setPrice(val)}
+                value={price}
                 placeholder="Price" />
           </Item>
           <Textarea
@@ -61,6 +88,7 @@ export function GiftForm({navigation, route}) {
               bordered
               placeholder="Notes"
               style={styles.textArea}
+              value={notes}
               onChangeText={val => setNotes(val)}/>
           <Button
             onPress={submitGift}
