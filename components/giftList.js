@@ -62,15 +62,15 @@ export function GiftList({navigation, route}) {
                     onPress={() =>
                       ActionSheet.show(
                         {
-                          options: ['Delete', 'Cancel', 'Edit'],
-                          cancelButtonIndex: 1,
+                          options: ['Delete', 'Edit', 'Cancel'],
+                          cancelButtonIndex: 2,
                           destructiveButtonIndex: 0,
                           title: gift.name
                         },
                         buttonIndex => {
                           if (buttonIndex === 0) {
                             deleteSpecificGift(gift).then()
-                          } else if (buttonIndex === 2) {
+                          } else if (buttonIndex === 1) {
                             navigation.navigate('GiftForm', {currentGift: gift, person: route.params.person})
                           }
                         }
@@ -103,15 +103,15 @@ export function GiftList({navigation, route}) {
                       onPress={() =>
                         ActionSheet.show(
                           {
-                            options: ['Delete', 'Cancel', 'Edit'],
-                            cancelButtonIndex: 1,
+                            options: ['Delete', 'Edit', 'Cancel'],
+                            cancelButtonIndex: 2,
                             destructiveButtonIndex: 0,
                             title: gift.name
                           },
                           buttonIndex => {
                             if (buttonIndex === 0) {
                               deleteSpecificGift(gift).then()
-                            } else if (buttonIndex === 2) {
+                            } else if (buttonIndex === 1) {
                               navigation.navigate('GiftForm', {currentGift: gift, person: route.params.person})
                             }
                           }
