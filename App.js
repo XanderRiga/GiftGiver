@@ -43,18 +43,24 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home} options={{title: 'People'}} />
-          <Stack.Screen name="PersonForm" component={PersonForm} options={{title: 'Add A Person'}} />
+          <Stack.Screen
+              name="PersonForm"
+              component={PersonForm}
+              options={({ route }) =>
+                  ({title: route.params.title})} />
           <Stack.Screen
             name="Gifts"
             component={GiftList} />
           <Stack.Screen
             name="GiftForm"
             component={GiftForm}
-            options={{title: 'Add a Gift'}} />
+            options={({ route }) =>
+                ({title: route.params.title})} />
           <Stack.Screen
             name="GiftPage"
             component={GiftPage}
-            options={({ route }) => ({ title: route.params.name })}/>
+            options={({ route }) =>
+                ({ title: route.params.name })}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Root>

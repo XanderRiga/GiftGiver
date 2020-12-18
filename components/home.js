@@ -73,7 +73,7 @@ export function Home({navigation}) {
                           if (buttonIndex === 0) {
                             deletePerson(person).then()
                           } else if (buttonIndex === 1) {
-                            navigation.navigate('PersonForm', {person: person})
+                            navigation.navigate('PersonForm', {person: person, title: 'Edit ' + person.name})
                           }
                         }
                       )}>
@@ -88,7 +88,7 @@ export function Home({navigation}) {
         active={true}
         style={{ backgroundColor: 'blue' }}
         position="bottomRight"
-        onPress={() => navigation.navigate('PersonForm')}>
+        onPress={() => navigation.navigate('PersonForm', {title: 'Add a Person'})}>
         <Icon name="add" />
       </Fab>
     </Container>

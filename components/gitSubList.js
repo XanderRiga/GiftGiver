@@ -43,7 +43,7 @@ export const GiftSubList = (props) => {
                   if (buttonIndex === 0) {
                     deleteSpecificGift(gift).then()
                   } else if (buttonIndex === 1) {
-                    props.navigation.navigate('GiftForm', {currentGift: gift, person: props.person})
+                    props.navigation.navigate('GiftForm', {currentGift: gift, person: props.person, title: 'Edit ' + gift.name})
                   }
                 }
               )}>

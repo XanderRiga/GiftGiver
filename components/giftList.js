@@ -59,7 +59,7 @@ export function GiftList({navigation, route}) {
           active={true}
           style={{ backgroundColor: 'blue' }}
           position="bottomRight"
-          onPress={() => {navigation.navigate('GiftForm', {person: route.params.person})}}>
+          onPress={() => {navigation.navigate('GiftForm', {person: route.params.person, title: 'Add a Gift'})}}>
         <Icon name="add" />
       </Fab>
     </Container>
