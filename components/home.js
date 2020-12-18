@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Body, Container, Content, List, ListItem, Text, Right, Icon, Button, Fab} from 'native-base';
+import {Body, Container, Content, List, ListItem, Text, Right, Icon, Button, Fab, ActionSheet} from 'native-base';
 import Person from '../models/person';
 import {Alert} from "react-native";
 import Gift from "../models/gift";
@@ -58,8 +58,26 @@ export function Home({navigation}) {
                   <Text>{person.name}</Text>
                 </Body>
                 <Right>
-                  <Button icon transparent small onPress={() => trashPersonButtonPress(person)}>
-                    <Icon name="trash" style={{color: 'red'}} />
+                  <Button
+                    icon
+                    transparent
+                    onPress={() =>
+                      ActionSheet.show(
+                        {
+                          options: ['Delete', 'Edit', 'Cancel'],
+                          cancelButtonIndex: 2,
+                          destructiveButtonIndex: 0,
+                          title: person.name
+                        },
+                        buttonIndex => {
+                          if (buttonIndex === 0) {
+                            deletePerson(person).then()
+                          } else if (buttonIndex === 1) {
+                            navigation.navigate('PersonForm', {person: person})
+                          }
+                        }
+                      )}>
+                    <Icon type={'FontAwesome'} name="ellipsis-h" style={{color: 'black'}} />
                   </Button>
                 </Right>
               </ListItem>)

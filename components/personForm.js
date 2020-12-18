@@ -3,8 +3,17 @@ import {StyleSheet} from "react-native";
 import {Button, Container, Content, Form, Item, Input, Text, Toast} from 'native-base';
 import Person from '../models/person';
 
-export function PersonForm({navigation}) {
+export function PersonForm({navigation, route}) {
   const [name, setName] = useState('')
+
+  React.useEffect(() => {
+    return navigation.addListener('focus', () => {
+      if (route.params.person) {
+        const person = route.params.person
+        setName(person.name)
+      }
+    });
+  });
 
   const submitPerson = async () => {
     if (!name) {
@@ -15,8 +24,16 @@ export function PersonForm({navigation}) {
       return;
     }
 
-    const person = new Person({name: name})
-    await person.save();
+    if (route.params.person) {
+      await Person.update({
+        id: route.params.person.id,
+        name: name
+      })
+    } else {
+      const person = new Person({name: name})
+      await person.save();
+    }
+
     navigation.goBack();
   }
 
@@ -27,6 +44,7 @@ export function PersonForm({navigation}) {
           <Item>
             <Input
                 onChangeText={val => setName(val)}
+                value={name}
                 placeholder="Name" />
           </Item>
           <Button
