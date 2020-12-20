@@ -7,6 +7,8 @@ export function GiftForm({navigation, route}) {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const [price, setPrice] = useState('0');
+  const [trackingNumber, setTrackingNumber] = useState('');
+  const [trackingLink, setTrackingLink] = useState('');
 
   React.useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -14,6 +16,8 @@ export function GiftForm({navigation, route}) {
         const gift = route.params.currentGift
         setName(gift.name)
         setNotes(gift.notes)
+        setTrackingNumber(gift.tracking_number)
+        setTrackingLink(gift.tracking_link)
         setPrice(buildPriceDollars(gift.price_cents))
       }
     });
@@ -42,6 +46,8 @@ export function GiftForm({navigation, route}) {
         id: route.params.currentGift.id,
         name: name,
         notes: notes,
+        tracking_number: trackingNumber,
+        tracking_link: trackingLink,
         price_cents: price_cents
       });
     } else {
@@ -79,9 +85,21 @@ export function GiftForm({navigation, route}) {
           <Item style={styles.input}>
             <Icon active name='dollar-sign' type={'FontAwesome5'} />
             <Input
-                onChangeText={val => setPrice(val)}
-                value={price}
-                placeholder="Price" />
+              onChangeText={val => setPrice(val)}
+              value={price}
+              placeholder="Price" />
+          </Item>
+          <Item style={styles.input}>
+            <Input
+              onChangeText={val => setTrackingNumber(val)}
+              value={trackingNumber}
+              placeholder="Tracking Number" />
+          </Item>
+          <Item style={styles.input}>
+            <Input
+              onChangeText={val => setTrackingLink(val)}
+              value={trackingLink}
+              placeholder="Tracking Link" />
           </Item>
           <Textarea
               rowSpan={5}
