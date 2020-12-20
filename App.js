@@ -50,7 +50,9 @@ export default function App() {
                   ({title: route.params.title})} />
           <Stack.Screen
             name="Gifts"
-            component={GiftList} />
+            component={GiftList}
+            options={({ route }) =>
+              ({title: route.params.title})} />
           <Stack.Screen
             name="GiftForm"
             component={GiftForm}

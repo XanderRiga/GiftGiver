@@ -43,15 +43,15 @@ export function PersonForm({navigation, route}) {
         <Form>
           <Item>
             <Input
-                onChangeText={val => setName(val)}
-                value={name}
-                placeholder="Name" />
+              onChangeText={val => setName(val)}
+              value={name}
+              placeholder="Name" />
           </Item>
           <Button
-              onPress={submitPerson}
-              success
-              full
-              style={styles.saveButton}>
+            onPress={submitPerson}
+            success
+            full
+            style={styles.saveButton}>
             <Text>Submit</Text>
           </Button>
         </Form>
