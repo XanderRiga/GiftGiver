@@ -22,8 +22,10 @@ export default class Gift extends BaseModel {
       person_id: { type: types.INTEGER, not_null: true },
       checked: { type: types.BOOLEAN, not_null: true, default: false },
       notes: { type: types.TEXT },
-      links: { type: types.TEXT },
+      link: { type: types.TEXT },
       tags: { type: types.TEXT },
+      tracking_number: { type: types.TEXT },
+      tracking_link: { type: types.TEXT },
       price_cents: { type: types.INTEGER },
       timestamp: { type: types.INTEGER, default: () => Date.now() }
     }
