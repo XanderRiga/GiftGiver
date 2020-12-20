@@ -6,7 +6,7 @@ import Gift from "../models/gift";
 export function GiftForm({navigation, route}) {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
-  const [price, setPrice] = useState('0');
+  const [price, setPrice] = useState('');
   const [trackingNumber, setTrackingNumber] = useState('');
   const [trackingLink, setTrackingLink] = useState('');
 
@@ -64,6 +64,9 @@ export function GiftForm({navigation, route}) {
   }
 
   const buildPriceCents = () => {
+    if (price === '') {
+      return ''
+    }
     const priceFloat = parseFloat(price)
     return Math.round( priceFloat * 100);
   }
