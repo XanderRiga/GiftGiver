@@ -3,6 +3,7 @@ import {Body, Container, Content, List, ListItem, Text, Right, Icon, Button, Fab
 import Person from '../models/person';
 import {Alert} from "react-native";
 import Gift from "../models/gift";
+import {SUCCESS} from '../helpers/colors'
 
 export function Home({navigation}) {
   const [people, setPeople] = useState([]);
@@ -87,7 +88,7 @@ export function Home({navigation}) {
       </Content>
       <Fab
         active={true}
-        style={{ backgroundColor: 'blue' }}
+        style={{ backgroundColor: SUCCESS }}
         position="bottomRight"
         onPress={() => navigation.navigate('PersonForm', {title: 'Add a Person'})}>
         <Icon name="add" />

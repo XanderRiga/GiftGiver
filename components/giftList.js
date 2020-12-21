@@ -3,6 +3,7 @@ import {Container, Content, Fab, List, Separator, Icon} from 'native-base';
 import Gift from '../models/gift';
 import {GiftSubList} from "./gitSubList";
 import { Alert } from "react-native";
+import {ERROR, SUCCESS} from "../helpers/colors";
 
 export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
@@ -99,14 +100,14 @@ export function GiftList({navigation, route}) {
       </Content>
       {gifts.length !== 0 ? <Fab
         active={true}
-        style={{ backgroundColor: 'red' }}
+        style={{ backgroundColor: ERROR }}
         position="bottomLeft"
         onPress={trashFabClicked}>
         <Icon name="trash" />
       </Fab> : undefined}
       <Fab
         active={true}
-        style={{ backgroundColor: 'blue' }}
+        style={{ backgroundColor: SUCCESS }}
         position="bottomRight"
         onPress={() => {navigation.navigate('GiftForm', {person: route.params.person, title: 'Add a Gift'})}}>
         <Icon name="add" />
