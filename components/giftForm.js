@@ -10,12 +10,14 @@ export function GiftForm({navigation, route}) {
   const [price, setPrice] = useState('');
   const [trackingNumber, setTrackingNumber] = useState('');
   const [trackingLink, setTrackingLink] = useState('');
+  const [link, setLink] = useState('');
 
   React.useEffect(() => {
     return navigation.addListener('focus', () => {
       if (route.params.currentGift) {
         const gift = route.params.currentGift
         setName(gift.name)
+        setLink(gift.link)
         setNotes(gift.notes)
         setTrackingNumber(gift.tracking_number)
         setTrackingLink(gift.tracking_link)
@@ -33,9 +35,17 @@ export function GiftForm({navigation, route}) {
       return;
     }
 
-    if (!urlValidator(trackingLink)) {
+    if (trackingLink && !urlValidator(trackingLink)) {
       Toast.show({
         text: "Tracking link must be a valid URL",
+        buttonText: 'Ok'
+      });
+      return;
+    }
+
+    if (link && !urlValidator(link)) {
+      Toast.show({
+        text: "Purchase link must be a valid URL",
         buttonText: 'Ok'
       });
       return;
@@ -54,6 +64,7 @@ export function GiftForm({navigation, route}) {
       await Gift.update({
         id: route.params.currentGift.id,
         name: name,
+        link: link,
         notes: notes,
         tracking_number: trackingNumber,
         tracking_link: trackingLink,
@@ -62,10 +73,11 @@ export function GiftForm({navigation, route}) {
     } else {
       const gift = new Gift({
         name: name,
+        link: link,
         person_id: route.params.person.id,
         notes: notes,
         price_cents: price_cents
-      })
+      });
       await gift.save();
     }
 
@@ -93,6 +105,12 @@ export function GiftForm({navigation, route}) {
               onChangeText={val => setName(val)}
               value={name}
               placeholder="Name" />
+          </Item>
+          <Item style={styles.input}>
+            <Input
+              onChangeText={val => setLink(val)}
+              value={link}
+              placeholder="Purchase URL" />
           </Item>
           <Item style={styles.input}>
             <Icon active name='dollar-sign' type={'FontAwesome5'} />

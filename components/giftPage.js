@@ -39,11 +39,20 @@ export function GiftPage({navigation, route}) {
               </Item>
             </Body>
           </CardItem>
-          <CardItem>
+          {route.params.gift.link ? <CardItem>
+            <Body>
+              <Button
+                transparent
+                onPress={() => openTrackingLink(route.params.gift.link)}>
+                <Text>{route.params.gift.link}</Text>
+              </Button>
+            </Body>
+          </CardItem> : undefined}
+          {route.params.gift.notes ? <CardItem>
             <Body>
               <Text>{route.params.gift.notes}</Text>
             </Body>
-          </CardItem>
+          </CardItem> : undefined}
         </Card>
 
         {(route.params.gift.tracking_link || route.params.gift.tracking_number) ? <Card>
