@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet} from "react-native";
 import {Button, Container, Content, Form, Item, Icon, Input, Text, Textarea, Toast} from 'native-base';
 import Gift from "../models/gift";
+import {urlValidator} from "../helpers/urlValidator";
 
 export function GiftForm({navigation, route}) {
   const [name, setName] = useState('');
@@ -27,6 +28,14 @@ export function GiftForm({navigation, route}) {
     if (!name) {
       Toast.show({
         text: "Name must be filled",
+        buttonText: 'Ok'
+      });
+      return;
+    }
+
+    if (!urlValidator(trackingLink)) {
+      Toast.show({
+        text: "Tracking link must be a valid URL",
         buttonText: 'Ok'
       });
       return;
