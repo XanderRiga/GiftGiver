@@ -97,13 +97,13 @@ export function GiftList({navigation, route}) {
             person={route.params.person}/>
         </List>
       </Content>
-      <Fab
+      {gifts.length !== 0 ? <Fab
         active={true}
         style={{ backgroundColor: 'red' }}
         position="bottomLeft"
         onPress={trashFabClicked}>
         <Icon name="trash" />
-      </Fab>
+      </Fab> : undefined}
       <Fab
         active={true}
         style={{ backgroundColor: 'blue' }}
