@@ -19,6 +19,8 @@ export default class Person extends BaseModel {
     return {
       id: { type: types.INTEGER, primary_key: true },
       name: { type: types.TEXT, not_null: true },
+      birth_date: { type: types.DATE },
+      relationship: { type: types.TEXT },
     }
   }
 
