@@ -3,6 +3,7 @@ import {truncate} from "../helpers/truncate";
 import React from "react";
 import Gift from "../models/gift";
 import {StyleSheet} from "react-native";
+import {PRIMARY} from '../helpers/colors';
 
 export const GiftSubList = (props) => {
   const deleteSpecificGift = async (gift) => {
@@ -57,6 +58,7 @@ export const GiftSubList = (props) => {
 
 const styles = StyleSheet.create({
   subText: {
-    fontSize: 13
+    fontSize: 13,
+    color: PRIMARY
   }
 })

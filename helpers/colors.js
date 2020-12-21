@@ -1,0 +1,6 @@
+export const PRIMARY = '#a0c4ff'
+export const SUCCESS = '#caffbf'
+export const WARNING = '#ffd6a5'
+export const ERROR = '#ffadad'
+export const PINK = '#ffc6ff'
+export const LIGHT_BLUE = '#9bf6ff'
