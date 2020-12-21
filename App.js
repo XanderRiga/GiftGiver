@@ -6,7 +6,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Home} from './components/home';
 import Gift from './models/gift';
 import Person from './models/person';
-import {Button, Icon, Root} from 'native-base';
+import Event from './models/event';
+import {Root} from 'native-base';
 import {PersonForm} from "./components/personForm";
 import * as Font from 'expo-font';
 import {GiftList} from "./components/giftList";
@@ -20,6 +21,7 @@ export default function App() {
   const createTables = useCallback(async () => {
     await Person.createTable();
     await Gift.createTable();
+    await Event.createTable();
     setReady(true);
   }, []);
 
