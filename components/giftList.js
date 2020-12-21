@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Container, Content, Fab, List, Separator, Icon} from 'native-base';
 import Gift from '../models/gift';
 import {GiftSubList} from "./gitSubList";
+import { Alert } from "react-native";
 
 export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
@@ -36,6 +37,47 @@ export function GiftList({navigation, route}) {
     return gifts.filter(gift => !gift.checked)
   }
 
+  const deleteChecked = async () => {
+    for (const gift of checkedGifts()) {
+      await deleteGift(gift);
+    }
+    loadGifts();
+  }
+
+  const deleteAll = async () => {
+    for (const gift of gifts) {
+      await deleteGift(gift)
+    }
+    loadGifts();
+  }
+
+  const deleteGift = async (gift) => {
+    await Gift.destroy(gift.id);
+  }
+
+  function trashFabClicked() {
+    Alert.alert(
+      'Delete Gifts?',
+      '',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel'
+        },
+        {
+          text: 'Delete All Checked',
+          onPress: () => deleteChecked()
+        },
+        {
+          text: 'Delete All Gifts',
+          onPress: () => deleteAll(),
+          style: 'destructive'
+        }
+      ]
+    );
+  }
+
   return (
     <Container>
       <Content>
@@ -56,10 +98,17 @@ export function GiftList({navigation, route}) {
         </List>
       </Content>
       <Fab
-          active={true}
-          style={{ backgroundColor: 'blue' }}
-          position="bottomRight"
-          onPress={() => {navigation.navigate('GiftForm', {person: route.params.person, title: 'Add a Gift'})}}>
+        active={true}
+        style={{ backgroundColor: 'red' }}
+        position="bottomLeft"
+        onPress={trashFabClicked}>
+        <Icon name="trash" />
+      </Fab>
+      <Fab
+        active={true}
+        style={{ backgroundColor: 'blue' }}
+        position="bottomRight"
+        onPress={() => {navigation.navigate('GiftForm', {person: route.params.person, title: 'Add a Gift'})}}>
         <Icon name="add" />
       </Fab>
     </Container>
