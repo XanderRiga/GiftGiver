@@ -15,7 +15,13 @@ export function GiftPage({navigation, route}) {
   }
 
   const openTrackingLink = (link) => {
-    Linking.openURL(link);
+    if (link.toLowerCase().startsWith('http')) {
+      console.log(link)
+      Linking.openURL(link);
+      return;
+    }
+
+    Linking.openURL('http://' + link)
   }
 
   return (
