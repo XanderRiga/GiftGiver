@@ -1,5 +1,5 @@
 import React from 'react';
-import {Body, Button, Card, CardItem, Container, Content, Icon, Row, Text, Grid} from 'native-base';
+import {Body, Button, Card, Col, CardItem, Container, Content, Icon, Row, Text, Grid} from 'native-base';
 import * as Linking from 'expo-linking';
 import {PRIMARY} from "../helpers/colors";
 import {StyleSheet} from "react-native";
@@ -40,17 +40,19 @@ export function AboutPage({navigation, route}) {
                 my website that details some of my other projects.
               </Text>
               <Grid style={{margin: 10}}>
-                <Row>
-                  <Button icon transparent onPress={() => {Linking.openURL(GITHUB_URL)}}>
-                    <Icon name={'logo-github'} style={styles.socialIcon}/>
-                  </Button>
-                  <Button icon transparent onPress={() => {Linking.openURL(LINKEDIN_URL)}}>
-                    <Icon name={'logo-linkedin'} style={styles.socialIcon}/>
-                  </Button>
-                  <Button icon transparent onPress={() => {Linking.openURL(WEBSITE_URL)}}>
-                    <Icon name={'globe'} style={styles.socialIcon}/>
-                  </Button>
-                </Row>
+                <Col style={{alignItems: 'center'}}>
+                  <Row>
+                    <Button icon transparent onPress={() => {Linking.openURL(GITHUB_URL)}}>
+                      <Icon name={'logo-github'} style={styles.socialIcon}/>
+                    </Button>
+                    <Button icon transparent onPress={() => {Linking.openURL(LINKEDIN_URL)}}>
+                      <Icon name={'logo-linkedin'} style={styles.socialIcon}/>
+                    </Button>
+                    <Button icon transparent onPress={() => {Linking.openURL(WEBSITE_URL)}}>
+                      <Icon name={'globe'} style={styles.socialIcon}/>
+                    </Button>
+                  </Row>
+                </Col>
               </Grid>
             </Body>
           </CardItem>
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
   socialIcon: {
     color: 'black',
     fontSize: 40,
-    marginRight: 10
+    marginRight: 20,
+    marginLeft: 10
   }
 });
