@@ -7,12 +7,14 @@ import {Home} from './components/home';
 import Gift from './models/gift';
 import Person from './models/person';
 import Event from './models/event';
-import {Root} from 'native-base';
+import {Button, Icon, Root} from 'native-base';
 import {PersonForm} from "./components/personForm";
 import * as Font from 'expo-font';
 import {GiftList} from "./components/giftList";
 import {GiftForm} from "./components/giftForm";
 import {GiftPage} from "./components/giftPage";
+import {PRIMARY} from "./helpers/colors";
+import {AboutPage} from "./components/aboutPage";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -44,7 +46,20 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
-            component={Home} options={{title: 'People'}} />
+            component={Home} options={({ navigation, route }) =>
+              ({
+                title: 'People',
+                headerRight: () => (
+                  <Button
+                    onPress={() => navigation.navigate('AboutPage')}
+                    title="Info"
+                    icon
+                    transparent
+                  >
+                    <Icon color={PRIMARY} name={'information-circle-outline'}/>
+                  </Button>
+                ),
+              })} />
           <Stack.Screen
               name="PersonForm"
               component={PersonForm}
@@ -59,12 +74,17 @@ export default function App() {
             name="GiftForm"
             component={GiftForm}
             options={({ route }) =>
-                ({title: route.params.title})} />
+              ({title: route.params.title})} />
           <Stack.Screen
             name="GiftPage"
             component={GiftPage}
             options={({ route }) =>
-                ({ title: route.params.name })}/>
+              ({ title: route.params.name })}/>
+          <Stack.Screen
+            name="AboutPage"
+            component={AboutPage}
+            options={({ route }) =>
+              ({ title: 'About' })}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Root>
