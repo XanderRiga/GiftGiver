@@ -76,6 +76,8 @@ export function GiftForm({navigation, route}) {
         link: link,
         person_id: route.params.person.id,
         notes: notes,
+        tracking_number: trackingNumber,
+        tracking_link: trackingLink,
         price_cents: price_cents
       });
       await gift.save();
