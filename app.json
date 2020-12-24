@@ -1,12 +1,26 @@
 {
-  "name": "GiftGiver",
-  "displayName": "GiftGiver",
   "expo": {
     "name": "GiftGiver",
     "slug": "GiftGiver",
-    "version": "1.0.0",
+    "icon": "./assets/giftgiver-icon.png",
+    "version": "0.0.6",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "splash": {
+      "image": "./assets/giftgiver-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package": "com.xanderriga.giftgiver",
+      "versionCode": 5,
+      "permissions": []
+    },
+    "ios": {
+      "bundleIdentifier": "com.xanderriga.giftgiver",
+      "buildNumber": "0.0.5",
+      "supportsTablet": true
+    }
   }
 }
