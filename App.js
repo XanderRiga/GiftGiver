@@ -15,6 +15,8 @@ import {GiftForm} from "./components/giftForm";
 import {GiftPage} from "./components/giftPage";
 import {PRIMARY} from "./helpers/colors";
 import {AboutPage} from "./components/aboutPage";
+import {FilterGiftList} from "./components/filterGiftList";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -24,6 +26,10 @@ export default function App() {
     await Person.createTable();
     await Gift.createTable();
     await Event.createTable();
+
+    await AsyncStorage.removeItem('minPriceFilter');
+    await AsyncStorage.removeItem('maxPriceFilter');
+    await AsyncStorage.removeItem('stringQueryFilter');
     setReady(true);
   }, []);
 
@@ -68,8 +74,10 @@ export default function App() {
           <Stack.Screen
             name="Gifts"
             component={GiftList}
-            options={({ route }) =>
-              ({title: route.params.title})} />
+            options={({ navigation, route }) =>
+              ({
+                title: route.params.title
+              })} />
           <Stack.Screen
             name="GiftForm"
             component={GiftForm}
@@ -85,6 +93,11 @@ export default function App() {
             component={AboutPage}
             options={({ route }) =>
               ({ title: 'About' })}/>
+          <Stack.Screen
+            name="FilterGiftList"
+            component={FilterGiftList}
+            options={({ route }) =>
+              ({ title: 'Filters' })}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Root>
