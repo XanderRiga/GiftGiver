@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet} from "react-native";
-import {Button, Container, Content, Form, Item, Input, Text, Toast} from 'native-base';
+import {Button, Container, Content, Form, Label, Item, Input, Text, Toast} from 'native-base';
 import Person from '../models/person';
 
 export function PersonForm({navigation, route}) {
@@ -41,11 +41,11 @@ export function PersonForm({navigation, route}) {
     <Container>
       <Content padder>
         <Form>
-          <Item>
+          <Item floatingLabel>
+            <Label>Name</Label>
             <Input
               onChangeText={val => setName(val)}
-              value={name}
-              placeholder="Name" />
+              value={name} />
           </Item>
           <Button
             onPress={submitPerson}
