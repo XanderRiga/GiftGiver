@@ -33,7 +33,10 @@ export function GiftList({navigation, route}) {
     }
 
     if (stringQuery) {
-      giftList = giftList.filter(gift => gift.name.toLowerCase().includes(stringQuery.toLowerCase()))
+      giftList = giftList.filter(gift => {
+        return (gift.name.toLowerCase().includes(stringQuery.toLowerCase()) ||
+                gift.notes.toLowerCase().includes(stringQuery.toLowerCase()))
+      })
     }
 
     return giftList;
