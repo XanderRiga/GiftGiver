@@ -42,14 +42,14 @@ export function GiftList({navigation, route}) {
     for (const gift of checkedGifts()) {
       await deleteGift(gift);
     }
-    loadGifts();
+    loadGifts().then();
   }
 
   const deleteAll = async () => {
     for (const gift of gifts) {
       await deleteGift(gift)
     }
-    loadGifts();
+    loadGifts().then();
   }
 
   const deleteGift = async (gift) => {

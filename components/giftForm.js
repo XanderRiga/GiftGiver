@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet} from "react-native";
-import {Button, Container, Content, Form, Item, Icon, Input, Text, Textarea, Toast} from 'native-base';
+import {Button, Container, Content, Form, Label, Item, Icon, Input, Text, Textarea, Toast} from 'native-base';
 import Gift from "../models/gift";
 import {urlValidator} from "../helpers/urlValidator";
 
@@ -102,36 +102,36 @@ export function GiftForm({navigation, route}) {
     <Container>
       <Content padder>
         <Form style={styles.form}>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Name</Label>
             <Input
               onChangeText={val => setName(val)}
-              value={name}
-              placeholder="Name" />
+              value={name} />
           </Item>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Purchase URL</Label>
             <Input
               onChangeText={val => setLink(val)}
-              value={link}
-              placeholder="Purchase URL" />
+              value={link} />
           </Item>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
             <Icon active name='dollar-sign' type={'FontAwesome5'} />
+            <Label>Price</Label>
             <Input
               onChangeText={val => setPrice(val)}
-              value={price}
-              placeholder="Price" />
+              value={price} />
           </Item>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Tracking Number</Label>
             <Input
               onChangeText={val => setTrackingNumber(val)}
-              value={trackingNumber}
-              placeholder="Tracking Number" />
+              value={trackingNumber} />
           </Item>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Tracking Link</Label>
             <Input
               onChangeText={val => setTrackingLink(val)}
-              value={trackingLink}
-              placeholder="Tracking Link" />
+              value={trackingLink} />
           </Item>
           <Textarea
               rowSpan={5}
