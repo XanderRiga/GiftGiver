@@ -16,7 +16,6 @@ export function GiftPage({navigation, route}) {
 
   const openTrackingLink = (link) => {
     if (link.toLowerCase().startsWith('http')) {
-      console.log(link)
       Linking.openURL(link);
       return;
     }
@@ -31,14 +30,15 @@ export function GiftPage({navigation, route}) {
           <CardItem header>
             <Text>{route.params.gift.name}</Text>
           </CardItem>
-          <CardItem>
+
+          {route.params.gift.price_cents ? <CardItem>
             <Body>
               <Item>
                 <Icon active name='dollar-sign' type={'FontAwesome5'} />
                 <Text>{(route.params.gift.price_cents * 1.0) / 100}</Text>
               </Item>
             </Body>
-          </CardItem>
+          </CardItem> : undefined}
           {route.params.gift.link ? <CardItem>
             <Body>
               <Button

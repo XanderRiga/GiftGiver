@@ -1,21 +1,66 @@
-import React, {useCallback, useState} from 'react';
-import {Container, Content, Fab, List, Separator, Icon} from 'native-base';
+import React, {useCallback, useState, useEffect} from 'react';
+import {Container, Content, Fab, List, Separator, Icon, Button} from 'native-base';
 import Gift from '../models/gift';
 import {GiftSubList} from "./gitSubList";
 import { Alert } from "react-native";
 import {ERROR, SUCCESS} from "../helpers/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
 
   const loadGifts = useCallback(async () => {
-    const loadedGifts = await Gift.query({where: {person_id_eq: route.params.person.id}})
-    setGifts(loadedGifts);
+    const loadedGifts = await Gift.query({ where: {
+      person_id_eq: route.params.person.id
+    }});
+
+    const filteredGifts = await filterGifts(loadedGifts)
+
+    setGifts(filteredGifts);
   }, []);
 
-  React.useEffect(() => {
+  const filterGifts = async (giftList) => {
+    const minPrice = await AsyncStorage.getItem('minPriceFilter');
+    const maxPrice = await AsyncStorage.getItem('maxPriceFilter');
+    const stringQuery = await AsyncStorage.getItem('stringQueryFilter');
+
+    if (minPrice) {
+      giftList = giftList.filter(gift => price_cents_not_exists(gift) || (gift.price_cents / 100) >= minPrice)
+    }
+
+    if (maxPrice) {
+      giftList = giftList.filter(gift => price_cents_not_exists(gift) || (gift.price_cents / 100) <= maxPrice)
+    }
+
+    if (stringQuery) {
+      giftList = giftList.filter(gift => {
+        return (gift.name.toLowerCase().includes(stringQuery.toLowerCase()) ||
+                gift.notes.toLowerCase().includes(stringQuery.toLowerCase()))
+      })
+    }
+
+    return giftList;
+  }
+
+  function price_cents_not_exists(gift) {
+    return (gift.price_cents === undefined || gift.price_cents === null || gift.price_cents === '')
+  }
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate('FilterGiftList')}
+          icon
+          transparent
+        >
+          <Icon style={{color: 'black'}} type="FontAwesome" name={'filter'}/>
+        </Button>
+      )
+    });
+
     return navigation.addListener('focus', () => {
-      loadGifts().then();
+      loadGifts().then()
     });
   }, [navigation]);
 
@@ -31,7 +76,7 @@ export function GiftList({navigation, route}) {
   }
 
   function checkedGifts() {
-    return gifts.filter(gift => gift.checked)
+    return gifts.filter(gift => gift.checked);
   }
 
   function unCheckedGifts() {
