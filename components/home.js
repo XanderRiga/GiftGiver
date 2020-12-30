@@ -4,6 +4,7 @@ import Person from '../models/person';
 import {Alert} from "react-native";
 import Gift from "../models/gift";
 import {SUCCESS} from '../helpers/colors'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Home({navigation}) {
   const [people, setPeople] = useState([]);
@@ -15,6 +16,12 @@ export function Home({navigation}) {
   React.useEffect(() => {
     return navigation.addListener('focus', () => {
       loadPeople().then()
+
+      // If we back up this far, we want to reset filters
+      // In case they click a new person
+      AsyncStorage.removeItem('minPriceFilter');
+      AsyncStorage.removeItem('maxPriceFilter');
+      AsyncStorage.removeItem('stringQueryFilter');
     });
   }, [navigation]);
 

@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {Container, Content, Fab, List, Separator, Icon, Button} from 'native-base';
+import {Container, Content, Fab, List, Separator, Icon, Button, ListItem, Text} from 'native-base';
 import Gift from '../models/gift';
 import {GiftSubList} from "./gitSubList";
 import { Alert } from "react-native";
@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
+  const [hasFilters, setHasFilters] = useState(false);
 
   const loadGifts = useCallback(async () => {
     const loadedGifts = await Gift.query({ where: {
@@ -39,7 +40,23 @@ export function GiftList({navigation, route}) {
       })
     }
 
+    if (!!(minPrice || maxPrice || stringQuery)) {
+      console.log('setting filter true')
+      setHasFilters(true);
+    } else {
+      console.log('setting filter false')
+      setHasFilters(false);
+    }
+
     return giftList;
+  }
+
+  const clearFilters = async () => {
+    await AsyncStorage.removeItem('minPriceFilter');
+    await AsyncStorage.removeItem('maxPriceFilter');
+    await AsyncStorage.removeItem('stringQueryFilter');
+
+    await loadGifts();
   }
 
   function price_cents_not_exists(gift) {
@@ -128,6 +145,12 @@ export function GiftList({navigation, route}) {
     <Container>
       <Content>
         <List>
+          {hasFilters ?
+            <ListItem onPress={clearFilters}>
+              <Icon type={'FontAwesome'} name="times-circle" style={{color: 'red'}} />
+              <Text style={{paddingLeft: 10}}>Clear All Filters</Text>
+            </ListItem>
+            : undefined}
           <GiftSubList
             gifts={unCheckedGifts()}
             navigation={navigation}
