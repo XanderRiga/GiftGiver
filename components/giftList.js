@@ -41,10 +41,8 @@ export function GiftList({navigation, route}) {
     }
 
     if (!!(minPrice || maxPrice || stringQuery)) {
-      console.log('setting filter true')
       setHasFilters(true);
     } else {
-      console.log('setting filter false')
       setHasFilters(false);
     }
 
