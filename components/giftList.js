@@ -5,6 +5,7 @@ import {GiftSubList} from "./gitSubList";
 import { Alert } from "react-native";
 import {ERROR, SUCCESS} from "../helpers/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {giftPriceExists} from "../helpers/gift_price_exists"
 
 export function GiftList({navigation, route}) {
   const [gifts, setGifts] = useState([]);
@@ -26,11 +27,11 @@ export function GiftList({navigation, route}) {
     const stringQuery = await AsyncStorage.getItem('stringQueryFilter');
 
     if (minPrice) {
-      giftList = giftList.filter(gift => price_cents_not_exists(gift) || (gift.price_cents / 100) >= minPrice)
+      giftList = giftList.filter(gift => !giftPriceExists(gift) || (gift.price_cents / 100) >= minPrice)
     }
 
     if (maxPrice) {
-      giftList = giftList.filter(gift => price_cents_not_exists(gift) || (gift.price_cents / 100) <= maxPrice)
+      giftList = giftList.filter(gift => !giftPriceExists(gift) || (gift.price_cents / 100) <= maxPrice)
     }
 
     if (stringQuery) {
@@ -55,10 +56,6 @@ export function GiftList({navigation, route}) {
     await AsyncStorage.removeItem('stringQueryFilter');
 
     await loadGifts();
-  }
-
-  function price_cents_not_exists(gift) {
-    return (gift.price_cents === undefined || gift.price_cents === null || gift.price_cents === '')
   }
 
   useEffect(() => {
