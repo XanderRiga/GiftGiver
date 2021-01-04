@@ -3,7 +3,7 @@
     "name": "GiftGiver",
     "slug": "GiftGiver",
     "icon": "./assets/giftgiver-icon.png",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -14,12 +14,12 @@
     },
     "android": {
       "package": "com.xanderriga.giftgiver",
-      "versionCode": 6,
+      "versionCode": 8,
       "permissions": []
     },
     "ios": {
       "bundleIdentifier": "com.xanderriga.giftgiver",
-      "buildNumber": "0.0.6",
+      "buildNumber": "0.0.8",
       "supportsTablet": true
     }
   }
